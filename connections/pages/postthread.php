@@ -60,8 +60,7 @@ if ($topic != '') {
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtBody">Type your post here: </label>
-                                                <textarea class="form-control" name="textBody" id="txtBody" required>
-                                                </textarea>
+                                                <textarea class="form-control" name="textBody" id="txtBody" required></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="visibility">Visible To:</label>

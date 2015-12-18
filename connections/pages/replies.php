@@ -27,6 +27,7 @@ if( isset($_POST["replyMessage"])){
     }
     mysqli_stmt_close($stmt);
 }else{
+    //TODO error handling
     echo 'Its empty';
 }
 }
@@ -45,8 +46,7 @@ if( isset($_POST["replyMessage"])){
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="reply">Your Reply</label>
-                            <textarea name="replyMessage" class="form-control" id="replyMessage" required>
-                            </textarea>
+                            <textarea name="replyMessage" class="form-control" id="replyMessage" required></textarea>
                         </div>
                          <input type="submit" value="Post" name="btnReplyPost" class="btn btn-primary pull-right" />
                     </div>                     

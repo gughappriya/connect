@@ -76,7 +76,7 @@ if ($_SESSION['username'] != '') {
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="dob">Date of birth</label>
-                                            <input type="text" name="dob" class="form-control" id="dob" placeholder="MM/DD/YYYY">
+                                            <input type="text" name="dob" class="form-control" id="dob" placeholder="MM/DD/YYYY" required>
 
                                         </div>
                                         <div class="form-group">
@@ -86,8 +86,8 @@ if ($_SESSION['username'] != '') {
 
                                         <div class="form-group">
                                             <label for="address">Address</label>
-                                            <textarea name="address" class="form-control" id="addr" required>
-                                            </textarea>
+                                            <textarea name="address" class="form-control" id="addr" required></textarea>
+                                           
                                         </div>
                                         <div class="form-group">
                                             <label for="city">City</label>
@@ -95,7 +95,7 @@ if ($_SESSION['username'] != '') {
                                         </div>
                                         <div class="form-group">
                                             <label for="mob">State</label>                                                        
-                                            <select name="state" class="form-control"  id="mob">
+                                            <select name="state" class="form-control"  id="mob" required>
                                                 <option value="">Select...</option>
                                                 <option value="200">New Jersey</option>
                                                 <option value="201">New York</option>                                             
@@ -105,8 +105,7 @@ if ($_SESSION['username'] != '') {
                                         </div>
                                         <div class="form-group">
                                             <label for="about">Tell us something about yourself</label>
-                                            <textarea class="form-control" name="profiledesc" id="about">
-                                            </textarea>
+                                            <textarea class="form-control" name="profiledesc" id="about"></textarea>
                                         </div>
                                         <input type="submit" value="Register" class="btn btn-primary pull-right" />
                                     </div>
