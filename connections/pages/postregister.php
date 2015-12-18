@@ -87,7 +87,7 @@ if ($insert_stmt = $mysqli->prepare($insert_query)) {
     $insert_stmt->bind_param('sssssississ', $username, $password, $fname, $lname, $gender, $dob, $address, $city, $state, $profilepic, $profiledesc);
     if ($insert_stmt->execute()) {
         echo "<div class='isa_info'>Successfully registered! </div>";
-        header("location: home.php");
+        header("location: home.php?page=dashboard");
     }
     else {
         echo "Query failed";

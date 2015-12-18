@@ -18,7 +18,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 }
 
 //Create query
-$check_user_query = "SELECT firstname,lastname FROM user WHERE UserName=? AND Password=?";
+$check_user_query = "SELECT firstname,lastname,recentvisitedTime FROM user WHERE UserName=? AND Password=?";
 $numrows = 0;
 if ($stmt = $mysqli->prepare($check_user_query)) {
     $stmt->bind_param("ss", $username, $password);
@@ -26,10 +26,12 @@ if ($stmt = $mysqli->prepare($check_user_query)) {
     $stmt->store_result();
     $numrows = $stmt->num_rows;
     if ($numrows == 1) {
-        $stmt->bind_result($fname, $lname);
+        $stmt->bind_result($fname, $lname, $recentVisitedTime);
         $_SESSION['username'] = $username;
         $_SESSION['firstname'] = $fname;
-        header("location: home.php?page=home");
+        $_SESSION['recentVisitedTime']=$recentVisitedTime;
+        header("location: home.php?page=dashboard");
+        //TODO: Update user's recent visited time to current date time
         mysqli_stmt_close($stmt);
         exit();
     } else {

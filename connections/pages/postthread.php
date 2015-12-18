@@ -35,6 +35,7 @@ if ($topic != '') {
         // mysqli_stmt_bind_result($stmt, $threadId);
         if ($stmt->execute()) {
             mysqli_stmt_fetch($stmt);
+          
         } else {
             echo $mysqli->error();
         }
@@ -83,7 +84,11 @@ if ($topic != '') {
                             <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
+                        <!-- Button trigger modal -->
+                            
+                           
                     
                     
-                </div>
+               
+    
     
