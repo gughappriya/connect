@@ -131,11 +131,17 @@ CREATE TABLE IF NOT EXISTS `Connections`.`User` (
   `recentvisitedTime` DATETIME NOT NULL,
   `notificationType` VARCHAR(15) NULL,
   `notificationValue` VARCHAR(15) NULL,
+  `blockId` INT NULL,
   PRIMARY KEY (`userName`),
    CONSTRAINT `notificationtype`
     FOREIGN KEY (`notificationType`)
     REFERENCES `Connections`.`notificationType` (`notificationType`)
     ON DELETE NO ACTION,
+   CONSTRAINT `userblockId`
+    FOREIGN KEY (`blockId`)
+    REFERENCES `Connections`.`Block` (`blockId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     CONSTRAINT `stateId`
     FOREIGN KEY (`stateId`)
     REFERENCES `Connections`.`state` (`stateId`)
