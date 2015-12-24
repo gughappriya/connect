@@ -1,21 +1,24 @@
 <?php
-	include('include.php');
-	try {
-		$stmt= $mysqli->prepare('select u.blockId,hoodId from user u join block where u.userName= ?;');
-                 $stmt->bind_param("s", $_SESSION['username']);
-//		$stmt->execute(array($userName));
-//		$results = $stmt->fetchAll();
-//
-//		foreach($results as $row){
-//			$block=$row['block'];
-//			$hood=$row['hood'];
-//		}
-                $stmt->bind_result($blockId, $hoodId);
-		$stmt= $mysqli->prepare('select count(userName) from blockRequests br join block b where br.blockId=? and b.hoodId=? and currentStatus="Pending" '
-                        . 'and approver1 != ? or approver2 != ?;');
-		$stmt = null; // doing this is mandatory for connection to get closed
-	} catch (PDOException $e) {
-		echo "Error!: " . $e->getMessage() . "<br/>";
-	}
-
+include("include.php");
+try {
+    $stmt = $mysqli->prepare("select b.blockId, b.hoodId from block b where b.blockId in (select blockId from blockrequests where userName= ?);");
+    $stmt->bind_param("s", $_SESSION['username']);
+    $stmt->bind_result($blockId, $hoodId);
+    echo $blockId;
+    $stmt->close();
+    $get_count_query = "select count(userName) from blockRequests br where br.blockId=? and currentStatus='Pending' 
+                        and ((approver1 is null or approver1 != ?)
+                        or (approver2 is null or approver2 != ?))";
+    if ($selectstmt = $mysqli->prepare($get_count_query)) {
+        $selectstmt->bind_param('dss', $blockId, $_SESSION['username'], $_SESSION['username']);
+        if ($selectstmt->execute()) {
+             $selectstmt->store_result();
+             $selectstmt->bind_result($count);
+             echo $count;
+        }
+    }
+    // doing this is mandatory for connection to get closed
+} catch (PDOException $e) {
+    echo "Error!: " . $e->getMessage() . "<br/>";
+}
 ?>

@@ -20,25 +20,26 @@ function cleanText($str) {
 $username = cleanText($_POST['username']);
 //$password = cleanText($_POST['password']);
 $password = md5($_POST['password']);
-$confPassword = md5($_POST['confPassword']);
+echo $password;
 $fname = cleanText($_POST['fname']);
 $lname = cleanText($_POST['lname']);
 $gender = cleanText($_POST['sex']);
-$dob = cleanText($_POST['dob']);
 $address = cleanText($_POST['address']);
-$city = cleanText($_POST['city']);
-$state = cleanText($_POST['state']);
-$profilepic = $_POST['username'];
+
+
+$profilepic = addslashes($_FILES['fileImage']['tmp_name']);
+$profilepic = file_get_contents($profilepic);
+$profilepic = base64_encode($profilepic);
+
+
+//$profilepic = $_POST['username'];
 $profiledesc = cleanText($_POST['profiledesc']);
 //$notificationtype = cleanText($_POST['notificationType']);
 //$notificationvalue = cleanText($_POST['notificationvalue']);
 //set the upload path for the image file
-$target_path = $_SERVER['DOCUMENT_ROOT'] . "../images/user_images/" . basename($_POST["username"]) . ".jpg";
+//$target_path = $_SERVER['DOCUMENT_ROOT'] . "Connect/connections/images/user_images/" . basename($_FILES['file']['name']);
+//echo $target_path;
 
-if (strcmp($password, $confPassword) != 0) {
-    $errmsg_arr[] = 'Passwords do not match';
-    $errflag = true;
-}
 
 //Check for duplicate login ID
 if ($username != '') {
@@ -64,34 +65,42 @@ if ($errflag) {
     exit();
 }
 //Create INSERT query
-$dob = strtotime($dob);
 $insert_query = "INSERT INTO " .
         "user (username," .
         "password," .
         "firstName," .
         "lastName," .
         "gender," .
-        "birthdate," .
         "address," .
-        "city," .
-        "stateId," .
         "profilePic," .
         "profileDescription," .
         "recentvisitedTime) " .
         "VALUES" .
-        "(?,?,?,?,?,FROM_UNIXTIME(?),?,?,?,?,?,now())";
+        "(?,?,?,?,?,?,?,?,now())";
 //echo $username,$password,$fname,$lname,$gender,$dob,$address,$city,$state,$profilepic,$profiledesc;
-//move_uploaded_file($_FILES['profilepic']['tmp_name'], $target_path);
-//echo $insert_query;
+//echo $target_path;
+//if (move_uploaded_file($_FILES['userfile']['tmp_name'], $target_path)) {
+//    echo "File is valid, and was successfully uploaded.\n";
+//} else {
+//    echo "Possible file upload attack!\n";
+//}
+//
+//echo 'Here is some more debugging info:';
+//print_r($_FILES);
+
+echo $profilepic;
 if ($insert_stmt = $mysqli->prepare($insert_query)) {
-    $insert_stmt->bind_param('sssssississ', $username, $password, $fname, $lname, $gender, $dob, $address, $city, $state, $profilepic, $profiledesc);
+    $insert_stmt->bind_param('ssssssss', $username, $password, $fname, $lname, $gender, $address, $profilepic, $profiledesc);
     if ($insert_stmt->execute()) {
         echo "<div class='isa_info'>Successfully registered! </div>";
+        $_SESSION['username'] = $username;
+        $_SESSION['firstname'] = $fname;
         header("location: home.php?page=dashboard");
-    }
-    else {
+    } else {
         echo "Query failed";
     }
     $insert_stmt->close();
+} else {
+    echo 'Please check your input again';
 }
 ?>

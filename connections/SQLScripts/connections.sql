@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS Friend;
 DROP TABLE IF EXISTS Neighbor;
 DROP TABLE IF EXISTS BlockRequests;
 DROP TABLE IF EXISTS Reply;
+DROP TABLE IF EXISTS MessageRecipient;
 DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS MessageVisibility;
 DROP TABLE IF EXISTS User;
@@ -16,7 +17,7 @@ DROP TABLE IF EXISTS Hood;
 DROP TABLE IF EXISTS NotificationType;
 DROP TABLE IF EXISTS State;
 DROP TABLE IF EXISTS Country;
-DROP TABLE IF EXISTS MessageRecipient;
+
 
 -- -----------------------------------------------------
 -- Utility Tables
@@ -122,10 +123,7 @@ CREATE TABLE IF NOT EXISTS `Connections`.`User` (
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
   `gender` VARCHAR(10) NOT NULL,
-  `birthdate` DATETIME NULL,
   `address` TEXT NULL,
-  `city` VARCHAR(45) NULL,
-  `stateId` INT NULL,
   `profilePic` VARCHAR(25)  NULL,
   `profileDescription` TEXT NULL,
   `recentvisitedTime` DATETIME NOT NULL,
@@ -141,11 +139,7 @@ CREATE TABLE IF NOT EXISTS `Connections`.`User` (
     FOREIGN KEY (`blockId`)
     REFERENCES `Connections`.`Block` (`blockId`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    CONSTRAINT `stateId`
-    FOREIGN KEY (`stateId`)
-    REFERENCES `Connections`.`state` (`stateId`)
-    ON DELETE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

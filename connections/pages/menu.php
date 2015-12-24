@@ -204,7 +204,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -236,7 +236,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="home.php?page=Dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="home.php?page=dashboard"><i class="fa fa-dashboard fa-fw"></i> dashboard</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Messages<span class="fa arrow"></span></a>
@@ -250,6 +250,15 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                         <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Pending requests<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="home.php?page=blockRequests">Block requests</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>                       
                         <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>

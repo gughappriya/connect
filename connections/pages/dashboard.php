@@ -1,89 +1,5 @@
-  <script language="javascript" type="text/javascript">
-    	function getNewNeighbourCount(){
-    		var xhttp = new XMLHttpRequest();
-    		  xhttp.onreadystatechange = function() {
-    		    if (xhttp.readyState == 4 && xhttp.status == 200) {
-    		     document.getElementById("neighborRequestCount").innerHTML = xhttp.responseText;
-    		    }
-    		  };
-    		  xhttp.open("GET", "countBlockRequests.php", true);
-    		  xhttp.send();
 
-    		  getFriendRequestCount();
-    	}
-      function ajaxCallBlockRequests() {
-        $.ajax({
-              url: "getBlockRequests.php",
-              cache: false,
-              type: "GET",
-              crossDomain: true,
-              success: function(data) {
-                    alert(JSON.parse(data));
-                    response = JSON.parse(data);
-                    var arrayLength = response.length;
-                    for (var i = 0; i < arrayLength; i++) {
-                        alert(response[i]);
-                        //Do something
-                        $('#modalBlockRequests .modal-body #displayBlockRequests tbody').append('<tr id="user'+(i)+'"></tr>');
-                        //div = '<div class="form-group"><div class="col-md-9"><label for="userName" class="col-md-3 control-label">UserName</label></div></div><button type="button" class="btn btn-warning"  id="cancel">Cancel</button><button type="button" class="btn btn-primary" id="accept">Accept</button>'
-                        $('#user'+i).append('<td><div class="form-group"><div class="col-md-9"><label for="userName" class="col-md-3 control-label">'+response[i]+'</label></div></div></td>');
-                        $('#user'+i).append('</td><button data-user="'+response[i]+'" type="button" class="btn btn-primary" id="blockAccept">Accept</button>');
-
-                        $('#user'+i).append('<td><button data-user="'+response[i]+'" type="button" class="btn btn-warning"  id="blockDecline">Cancel</button></td>');
-                    }
-                    //$("#modalBlockRequests .modal-body #table").val( feedId );
-
-                    $('#modalBlockRequests').modal('show');
-
-
-                },
-                error: function(xhr) {
-                    alert(JSON.stringify(xhr));
-                }
-          });
-        }
-        function ajaxCallAcceptBlockRequests(user) {
-          $.ajax({
-                url: "acceptBlockRequest.php",
-                cache: false,
-                type: "POST",
-                crossDomain: true,
-                data: {
-                  "requestingUserName": encodeURIComponent(user),
-                },
-                success: function(data) {
-                      alert(JSON.parse(data));
-                  },
-                  error: function(xhr) {
-                      alert(JSON.stringify(xhr));
-                  }
-            });
-          }
-          	function getNewNeighbourCount(){
-    		var xhttp = new XMLHttpRequest();
-    		  xhttp.onreadystatechange = function() {
-    		    if (xhttp.readyState == 4 && xhttp.status == 200) {
-    		     document.getElementById("neighborRequestCount").innerHTML = xhttp.responseText;
-    		    }
-    		  };
-    		  xhttp.open("GET", "countNewNeighbourRequest.php", true);
-    		  xhttp.send();
-
-    		  //getFriendRequestCount();
-    	}
-      $(document).ready(function() {
-        $("a#blockRequests").click(function(event){
-          alert('Neighbor requests');
-          ajaxCallBlockRequests();
-        });
-        $('body').on('click','#blockAccept', function(event){
-          alert('Block accept clicked'+$(this).data("user"));
-          ajaxCallAcceptBlockRequests($(this).data("user"));
-        });
- 
-      });
-
-    </script> 
+<?php include("include.php") ?>
 <div class="row">
     <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -91,7 +7,6 @@
             <br>
             <?php
             //Create query
-           include ("include.php");
             $username = $_SESSION['username'];
             $check_block_query = "SELECT userName,currentStatus FROM blockrequests WHERE userName= ?";
             $uname = null;
@@ -106,7 +21,8 @@
                     if ($currentStatus == 'Pending') {
                         echo 'Your request to join a block is still pending with us.';
                     } else {
-                        ?><!--/.row --> 
+                        ?>
+            <!--/.row --> 
                         <div class = "row">
                             <div class = "col-lg-3 col-md-6">
                                 <div class = "panel panel-primary">
@@ -121,7 +37,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href = "#">
+                                    <a id="blockRequests">
                                         <div class = "panel-footer">
                                             <span class = "pull-left">View Details</span>
                                             <span class = "pull-right"><i class = "fa fa-arrow-circle-right"></i></span>
@@ -130,7 +46,7 @@
                                     </a>
                                 </div>
                             </div>
-<!--                            <div class = "col-lg-3 col-md-6">
+                            <div class = "col-lg-3 col-md-6">
                                 <div class = "panel panel-green">
                                     <div class = "panel-heading">
                                         <div class = "row">
@@ -195,14 +111,16 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div>-->
+                            </div>
                        
-                        <!--/.row --><?php
+                        <!--/.row -->
+                          <?php
                     }
                 }
             }
             $stmt->close();
-            ?>
+            ?> 
         </div>
     </div>
 </div>
+

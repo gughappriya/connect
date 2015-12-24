@@ -11,14 +11,13 @@ function clean($str) {
 }
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-
     //Sanitize the POST values
     $username = clean($_POST["username"]);
     $password = (md5($_POST["password"]));
 }
 
 //Create query
-$check_user_query = "SELECT firstname,lastname,recentvisitedTime FROM user WHERE UserName=? AND Password=?";
+$check_user_query = "SELECT firstname,lastname,recentvisitedTime FROM user WHERE userName=? AND password=?";
 $numrows = 0;
 if ($stmt = $mysqli->prepare($check_user_query)) {
     $stmt->bind_param("ss", $username, $password);
@@ -27,9 +26,12 @@ if ($stmt = $mysqli->prepare($check_user_query)) {
     $numrows = $stmt->num_rows;
     if ($numrows == 1) {
         $stmt->bind_result($fname, $lname, $recentVisitedTime);
-        $_SESSION['username'] = $username;
-        $_SESSION['firstname'] = $fname;
-        $_SESSION['recentVisitedTime']=$recentVisitedTime;
+        while ($stmt->fetch()) {
+            $_SESSION['username'] = $username;
+            $_SESSION['firstname'] = $fname;
+            $_SESSION['recentVisitedTime'] = $recentVisitedTime;
+        }
+
         header("location: home.php?page=dashboard");
         //TODO: Update user's recent visited time to current date time
         mysqli_stmt_close($stmt);
@@ -43,5 +45,7 @@ if ($stmt = $mysqli->prepare($check_user_query)) {
     }
     mysqli_stmt_close($stmt);
     exit();
+} else {
+    echo 'Incorrect username';
 }
 ?>

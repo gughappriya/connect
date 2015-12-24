@@ -1,7 +1,7 @@
 <?php
 
 include('include.php');
-$pendinguser = $_POST['pendingUser'];
+$pendinguser = $_SESSION['pendingUser'];
 try {
     if ($stmt = $mysqli->prepare("CALL blockrequest_approval(?,?)")) {
         $stmt->bind_param("ss", $_SESSION['username'], $pendinguser);
