@@ -35,14 +35,19 @@ if ($topic != '') {
         // mysqli_stmt_bind_result($stmt, $threadId);
         if ($stmt->execute()) {
             mysqli_stmt_fetch($stmt);
+             
+            
           
         } else {
             echo $mysqli->error();
+             mysqli_stmt_close($stmt);
         }
-        mysqli_stmt_close($stmt);
+      mysqli_stmt_close($stmt); 
     } else {
         echo $mysqli->error();
+        mysqli_stmt_close($stmt); 
     }
+   // mysqli_stmt_close($stmt);
 }
 ?>
 

@@ -245,7 +245,7 @@
                                     <a href="home.php?page=PostThread">Post Thread</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="home.php?page=MyThreads">My Threads</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -269,17 +269,18 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Feeds<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="home.php?page=blockfeeds">BlockFeeds</a>
+                                    <a href="home.php?page=hoodfeeds">Hood Feeds</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Buttons</a>
+                                    <a href="home.php?page=blockfeeds">Block Feeds</a>
                                 </li>
                                 <li>
-                                    <a href="notifications.html">Notifications</a>
+                                    <a href="home.php?page=friendfeeds">Friend Feeds</a>
                                 </li>
                                 <li>
-                                    <a href="typography.html">Typography</a>
+                                    <a href="home.php?page=neighborfeeds">Neighbor Feeds</a>
                                 </li>
+                                
                                 <li>
                                     <a href="icons.html"> Icons</a>
                                 </li>
