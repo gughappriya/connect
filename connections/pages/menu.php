@@ -22,6 +22,7 @@
     <![endif]-->
     <script src="External/jquery-1.11.3.min.js"></script>
     <script src="External/jquery-1.11.3.js"></script>
+   
     <!--script src="External/bootstrap-table.min.js"></script-->
 		<script src="External/bootstrap-table.js"></script>
     <link rel="stylesheet" href="External/bootstrap-table.css">
@@ -263,9 +264,9 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" id="txtSearch" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                    <button class="btn btn-default" id="btnSearch"  type="button">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
@@ -390,3 +391,11 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+
+ <script>
+    var btn = document.getElementById('btnSearch');
+    btn.addEventListener('click', function() {
+        var searchVal = document.getElementById('txtSearch').value;
+        document.location.href = 'home.php?page=searchresults&searchVal='+searchVal;
+    });
+  </script>
