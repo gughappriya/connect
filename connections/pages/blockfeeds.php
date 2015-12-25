@@ -41,14 +41,14 @@
 	threadCreatedTime ,m.creationDate as sortDate ,CONCAT('Your block member ',br.userName,' has posted a thread') as Note
 	FROM message m
 	inner join blockrequests br ON br.userName = m.messageAuthor AND br.userName<>? AND br.blockid = (SELECT blockId
-	from blockrequests WHERE userName =?) AND br.currentStatus='APPROVED'
+	from blockrequests WHERE userName =?) AND br.currentStatus='Approved'
 	inner JOIN messagerecipient mr ON mr.messageId = m.messageId AND mr.recepientUserName =	?)
     UNION(SELECT 
 	DISTINCT m.messageId,m.topic,m.messageAuthor,br.blockId,m.creationDate as
 	threadCreatedTime,r.creationDate as sortDate  ,CONCAT('Your block member ',br.userName,' has replied for this thread') as Note
 	FROM message m inner join reply r on m.messageId = r.messageId
 	inner join blockrequests br ON br.userName = r.replyByUser AND br.blockid = (SELECT blockId
-	from blockrequests WHERE userName =?) AND br.currentStatus='APPROVED'
+	from blockrequests WHERE userName =?) AND br.currentStatus='Approved'
 	inner JOIN messagerecipient mr ON mr.messageId = m.messageId AND mr.recepientUserName =	?)
     ORDER BY sortDate DESC)B  ;";
 //echo $username,$password,$fname,$lname,$gender,$dob,$addss,$city,$state,$profilepic,$profiledesc;

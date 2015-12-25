@@ -40,7 +40,7 @@
 	DISTINCT m.messageId,m.topic,m.messageAuthor,br.blockId,m.creationDate as
 	threadCreatedTime ,m.creationDate as sortDate ,CONCAT('Your block member ',br.userName,' has posted a thread') as Note
 	FROM message m
-	inner join blockrequests br ON br.userName = m.messageAuthor AND br.userName<>? AND br.currentStatus='APPROVED'
+	inner join blockrequests br ON br.userName = m.messageAuthor AND br.userName<>? AND br.currentStatus='Approved'
     inner join block bl ON bl.blockId = br.blockId AND  bl.hoodId = (SELECT hoodId
 	from blockrequests inner join block ON block.blockId=blockrequests.blockId WHERE userName =?) 
 	inner JOIN messagerecipient mr ON mr.messageId = m.messageId AND mr.recepientUserName =	?)
@@ -48,7 +48,7 @@
 	DISTINCT m.messageId,m.topic,m.messageAuthor,br.blockId,m.creationDate as
 	threadCreatedTime,r.creationDate as sortDate  ,CONCAT('Your block member ',br.userName,' has replied for this thread') as Note
 	FROM message m inner join reply r on m.messageId = r.messageId
-	inner join blockrequests br ON br.userName = m.messageAuthor AND br.currentStatus='APPROVED'
+	inner join blockrequests br ON br.userName = m.messageAuthor AND br.currentStatus='Approved'
     inner join block bl ON bl.blockId = br.blockId AND  bl.hoodId = (SELECT hoodId
 	from blockrequests inner join block ON block.blockId=blockrequests.blockId WHERE userName =?) 
 	inner JOIN messagerecipient mr ON mr.messageId = m.messageId AND mr.recepientUserName =	?)

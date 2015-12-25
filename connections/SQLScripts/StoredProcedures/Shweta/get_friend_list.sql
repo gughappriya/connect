@@ -1,4 +1,5 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_friend_list`(IN `userName` VARCHAR(25))
+DELIMITER $$
+CREATE PROCEDURE `get_friend_list`(IN `userName` VARCHAR(25))
 BEGIN
 SELECT friendUserName FROM Friend f
 		 WHERE f.memberName = userName

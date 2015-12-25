@@ -1,5 +1,5 @@
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_neighbor_search`(IN `userName` VARCHAR(25))
+DELIMITER $$
+CREATE PROCEDURE `get_neighbor_search`(IN `userName` VARCHAR(25))
 BEGIN
     
 SELECT u.userName FROM user u
