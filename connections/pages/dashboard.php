@@ -2,49 +2,18 @@
 
 <head>
     <style>
-        .circular {
-            width: 300px;
-            height: 300px;
-            border-radius: 150px;
-            -webkit-border-radius: 150px;
-            -moz-border-radius: 150px;
-            background: url(http://link-to-your/image.jpg) no-repeat;
-        }
         #circle
         {
             border-radius:50% 50% 50% 50%;  
-            width:300px;
-            height:300px;
-
-            /*
-               width: 200px; // These are your circle dimensions
-               height: 200px;
-               border-radius: 50%;
-               background-repeat: no-repeat; 
-               background-position: center center; // Center image in the circle
-               background-size: cover; // Make sure it covers the circle, as there is no bg repeat
-               background-image: url('http://placehold.it/150x150');*/
-        }
-        .round {
-            border-radius: 50%;
-            overflow: hidden;
-            width: 150px;
-            height: 150px;
-        }
-        .round img {
-            display: block;
-            /* Stretch 
-                  height: 100%;
-                  width: 100%; */
-            min-width: 100%;
-            min-height: 100%;
+            width:80px;
+            height:80px;
         }
     </style>
 </head>
 <?php
 include("include.php");
 $username = $_SESSION['username'];
-$check_pending_user = "select count(*) from blockrequests br where br.userName= ?";
+$check_pending_user = "select count(*) from blockrequests br where br.userName= ? and currentStatus = 'Pending'";
 $stmt = $mysqli->prepare($check_pending_user);
 $stmt->bind_param('s', $username);
 $stmt->execute();
@@ -91,8 +60,9 @@ if ($count == 1) {
                             <div class = "row">
 
                                 <div class = "col-lg-3 col-md-6">
-                                    <div class="circular">
-                                        <?php echo "<img src=../images/user_images/" . $username . ".jpg id='circle'>" ?>
+                                    <div >
+                                        <?php 
+                                        echo "<img src=../images/user_images/" . $username . ".jpg id='circle'  height='30' width='30'>" ?>
                                     </div>
                                     <!--                        <div class = "panel panel-primary">
                                                                   <div class = "panel-heading">

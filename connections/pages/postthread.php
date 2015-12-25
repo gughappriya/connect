@@ -1,7 +1,7 @@
 <?php
 include("include.php");
 $username = $_SESSION['username'];
-$check_pending_user = "select count(*) from blockrequests br where br.userName= ?";
+$check_pending_user = "select count(*) from blockrequests br where br.userName= ? and currentStatus = 'Pending'";
 $stmt = $mysqli->prepare($check_pending_user);
 $stmt->bind_param('s', $username);
 $stmt->execute();
