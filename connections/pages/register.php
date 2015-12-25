@@ -50,6 +50,7 @@ if ($_SESSION['username'] != '') {
         <script language="javascript" type="text/javascript">
             var markers = [];
             var marker;
+            var pos;
             function initMap() {
                 var mapFeed = new google.maps.Map(document.getElementById('mapFeed'), {
                     center: {lat: -34.397, lng: 150.644},
@@ -59,13 +60,14 @@ if ($_SESSION['username'] != '') {
 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function (position) {
-                        var pos = {
+                        pos = {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
                         };
 
                         infoWindowFeed.setPosition(pos);
-                        infoWindowFeed.setContent('Location found.');
+                        infoWindowFeed.setContent('You are here: '+ pos.lat+','+ pos.lng);
+                        updateMarkerPosition(pos, 'input[name=feedLocation]');
                         mapFeed.setCenter(pos);
                     }, function () {
                         handleLocationError(true, infoWindowFeed, mapFeed.getCenter());
@@ -164,7 +166,7 @@ if ($_SESSION['username'] != '') {
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <form method="POST" name="regForm" id="regForm" action="postregister.php" class="form-vertical"> 
+                                <form method="POST" name="regForm" id="regForm" action="postregister.php" enctype='multipart/form-data' class="form-vertical"> 
                                     <div class="col-lg-6">
 
                                         <div class="form-group">
@@ -195,7 +197,7 @@ if ($_SESSION['username'] != '') {
                                         
                                         <div  class="col-md-9" id="photoDiv" >
 							<div class="col-md-9" align="left">
-							<input type="file" class="filestyle" data-input="false" name="fileImage" id="image_upload">
+                                                            <input type="file" class="filestyle" data-input="false" name="fileImage" id="image_upload" required="">
 <!-- 								<input name="userfile" type="file" id="userfile"> " -->
 							</div>
 							</div>
@@ -212,8 +214,8 @@ if ($_SESSION['username'] != '') {
                                     </div>
 <!--                                    <div class="col-md-9">-->
                                         <div class="form-group">
-                                               <label for="about">Register for a block. Its easy!</label>
-                                                <input type="text" class="form-control" name="feedLocation"
+                                               <label for="about">Your location</label>
+                                                <input type='hidden' class="form-control" name="feedLocation"
                                                        placeholder="Enter location">
 <!--                                            </div>-->
                                         </div>

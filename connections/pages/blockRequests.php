@@ -1,58 +1,58 @@
 <?php include("include.php"); ?>
 <head>
-<!--      Bootstrap Core CSS 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-     Custom CSS 
-    <link href="css/sb-admin.css" rel="stylesheet">
-
-     Custom Fonts 
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="External/jquery-1.11.3.min.js"></script>
-    <script src="External/jquery-1.11.3.js"></script>
-    <script src="External/bootstrap-table.min.js">< /script
-                < script src = "External/bootstrap-table.js" ></script>
-    <link rel="stylesheet" href="External/bootstrap-table.css">
-    <link rel="stylesheet" href="External/bootstrap-table.min.css">
-
-    <script src="External/bootstrap.min.js"></script>
-    <script src="External/bootstrap.js"></script>
-    <script language="javascript" type="text/javascript">
-        function ajaxCallAcceptBlockRequests(user) {
-            $.ajax({
-                url: "acceptBlockRequest.php",
-                cache: false,
-                type: "POST",
-                crossDomain: true,
-                data: {
-                    "requestingUserName": encodeURIComponent(user),
-                },
-                success: function (data) {
-                    alert(JSON.parse(data));
-                },
-                error: function (xhr) {
-                    alert(JSON.stringify(xhr));
-                }
+    <!--      Bootstrap Core CSS 
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+         Custom CSS 
+        <link href="css/sb-admin.css" rel="stylesheet">
+    
+         Custom Fonts 
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="External/jquery-1.11.3.min.js"></script>
+        <script src="External/jquery-1.11.3.js"></script>
+        <script src="External/bootstrap-table.min.js">< /script
+                    < script src = "External/bootstrap-table.js" ></script>
+        <link rel="stylesheet" href="External/bootstrap-table.css">
+        <link rel="stylesheet" href="External/bootstrap-table.min.css">
+    
+        <script src="External/bootstrap.min.js"></script>
+        <script src="External/bootstrap.js"></script>
+        <script language="javascript" type="text/javascript">
+            function ajaxCallAcceptBlockRequests(user) {
+                $.ajax({
+                    url: "acceptBlockRequest.php",
+                    cache: false,
+                    type: "POST",
+                    crossDomain: true,
+                    data: {
+                        "requestingUserName": encodeURIComponent(user),
+                    },
+                    success: function (data) {
+                        alert(JSON.parse(data));
+                    },
+                    error: function (xhr) {
+                        alert(JSON.stringify(xhr));
+                    }
+                });
+            }
+    //        $(document).ready(function () {
+    //        $('body').on('click', '#blockAccept', function (event) {
+    //        alert('Block accept clicked' + $(this).data("user"));
+    //                ajaxCallAcceptBlockRequests($(this).data("user"));
+    //        });
+    //        }
+    
+            $(document).ready(function () {
+            $("#blockAccept").click(function(){
+            alert('Block accept clicked' + $(this).data("user"));
+                    ajaxCallAcceptBlockRequests($(this).data("user"));
             });
-        }
-//        $(document).ready(function () {
-//        $('body').on('click', '#blockAccept', function (event) {
-//        alert('Block accept clicked' + $(this).data("user"));
-//                ajaxCallAcceptBlockRequests($(this).data("user"));
-//        });
-//        }
-
-        $(document).ready(function () {
-        $("#blockAccept").click(function(){
-        alert('Block accept clicked' + $(this).data("user"));
-                ajaxCallAcceptBlockRequests($(this).data("user"));
-        });
-        }
-        
-    </script>-->
+            }
+            
+        </script>-->
 </head>
 
-<form action = "blockRequests.php" method="POST">
+<form action = "home.php?page=blockRequests" method="POST">
     <!-- /.row -->
     <div class = "row">
         <div class = "col-lg-10">
@@ -72,10 +72,10 @@
                 $stmt->close();
                 $get_user_query = "select userName from blockRequests br where br.blockId=? and currentStatus='Pending' 
                         and ((approver1 is null or approver1 != ?)
-                        or (approver2 is null or approver2 != ?))and br.userName != ?";
+                        or ((approver2 is null or approver2 != ?) and approver1 != ?))and br.userName != ?";
 
                 $select_stmt = $mysqli->prepare($get_user_query);
-                $select_stmt->bind_param('dsss', $blockId, $username, $username, $username);
+                $select_stmt->bind_param('dssss', $blockId, $username, $username,$username, $username);
                 if ($select_stmt->execute()) {
                     $select_stmt->store_result();
                     $numrows = $select_stmt->num_rows;
@@ -88,24 +88,32 @@
                             ?> <h3> You have following pending requests </h3>
                             <div class = "list-group" id = "display" >
                                 <?php
-                                // $result = mysqli_stmt_get_result($select_stmt);
                                 /* fetch associative array */
                                 while ($select_stmt->fetch()) {
                                     ?> <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
                                         <p class = "list-group-item-text" ><?php echo $uname; ?> </p><br>
-                                        <button type = "button" class = "btn btn-sm btn-primary" id = "blockAccept"> Accept</button>
+                                        <button type = "submit" name = "blockAccept" class = "btn btn-sm btn-primary" id = "blockAccept" value='<?php $uname ?>'> Accept</button>
                                     </a><?php
                                 }
                                 $select_stmt->close();
-                                if (isset($_POST["blockAccept"])) {                                  
+
+                                if (isset($_POST["blockAccept"])) {
                                     $_SESSION["pendingUser"] = $uname;
-                                     header("refresh: 1; acceptBlockRequests.php");
+                                    if ($stmt = $mysqli->prepare("CALL blockrequest_approval(?,?)")) {
+                                        $stmt->bind_param("ss", $username, $uname);
+                                        if ($stmt->execute()) {
+                                            mysqli_stmt_fetch($stmt);
+                                        } else {
+                                            echo $mysqli->error();
+                                        }
+                                    } else {
+                                        echo $mysqli->error();
+                                    }
+                                   // header("refresh: 1; home.php?page=blockRequests");
                                 }
                             }
                         }
-                        //echo json_encode($newNeighbors);
-                        // doing this is mandatory for connection to get closed
                     } catch (PDOException $e) {
                         echo "Error!: " . $e->getMessage() . "<br/>";
                         $log->error("Error!: " . $e->getMessage() . "<br/>");
@@ -114,5 +122,6 @@
                 </div>
             </div>
         </div>
+    </div>
 </form>
 
