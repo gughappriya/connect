@@ -333,7 +333,16 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Settings<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="home.php?page=blockchange">Change Block</a>
+                                </li>
+                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li> 
                        
                     </ul>
                 </div>

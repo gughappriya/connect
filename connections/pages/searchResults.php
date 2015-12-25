@@ -30,21 +30,23 @@
                         (SELECT DISTINCT m.messageId,m.topic,m.textBody,m.messageAuthor,m.creationDate as
                         threadCreatedTime
                         FROM message m
-                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName =?
+                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName =? AND m.blockid =(SELECT blockId
+	from blockrequests WHERE userName =?)
                         WHERE m.topic like ?
                         OR m.textBody like ?
                          )
                         UNION
                          (SELECT DISTINCT m.messageId,m.topic,m.textBody,m.messageAuthor,m.creationDate as threadCreatedTime
                         FROM message m
-                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName =?
+                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName =? AND m.blockid =(SELECT blockId
+	from blockrequests WHERE userName =?)
                         inner join reply r on m.messageId = r.messageId
                         WHERE r.reply like ?)ORDER BY threadCreatedTime DESC ";
 //echo $username,$password,$fname,$lname,$gender,$dob,$addss,$city,$state,$profilepic,$profiledesc;
 //move_uploaded_file($_FILES['profilepic']['tmp_name'], $target_path);
 //echo $insert_query;
                         if ($select_stmt = $mysqli->prepare($select_query)) {
-                            $select_stmt->bind_param('sssss', $username,$searchText,$searchText,$username,$searchText);
+                            $select_stmt->bind_param('sssssss', $username,$username,$searchText,$searchText,$username,$username,$searchText);
                             $select_stmt->execute();
                             $select_stmt->store_result();
                             $select_stmt->bind_result($mId, $topic,$body, $author, $threadCreatedDate);

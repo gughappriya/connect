@@ -39,12 +39,14 @@
 ((SELECT DISTINCT m.messageId,m.topic,m.messageAuthor,m.creationDate as sortDate,m.creationDate,null as replyId,null as
                                         replyMessage,CONCAT('Your neighbor ',N.neighborUserName,' has posted a thread') as Note
                                         FROM message m
-                                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName = ? 
+                                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName = ? AND m.blockid =(SELECT blockId
+	from blockrequests WHERE userName =?)
                                         INNER JOIN neighbor N On N.memberName =  ? AND N.neighborUserName = m.messageAuthor)
                                UNION     (SELECT DISTINCT m.messageId,m.topic,m.messageAuthor,r.creationDate as sortDate,m.creationDate,r.replyId,r.reply as
                                         replyMessage,CONCAT('Your neighbor ',N.neighborUserName,' has replied for this thread') as Note
                                         FROM message m 
-                                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName = ?                                        
+                                        inner join messagerecipient mr on m.messageId = mr.messageId AND mr.recepientUserName = ?  AND m.blockid =(SELECT blockId
+	from blockrequests WHERE userName =?)                                      
                                         inner join reply r on r.messageId = m.messageId 
                                         INNER JOIN neighbor N On N.memberName =  ? AND N.neighborUserName = r.replyByUser)   
                                         order by sortDate desc) B
@@ -53,7 +55,7 @@
 //move_uploaded_file($_FILES['profilepic']['tmp_name'], $target_path);
 //echo $insert_query;
                         if ($select_stmt = $mysqli->prepare($select_query)) {
-                            $select_stmt->bind_param('ssss', $username, $username, $username, $username);
+                            $select_stmt->bind_param('ssssss', $username, $username, $username, $username,$username,$username);
                             $select_stmt->execute();
                             $select_stmt->store_result();
                             $select_stmt->bind_result($mId, $topic, $author, $threadCreatedDate);

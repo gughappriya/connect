@@ -47,7 +47,7 @@ INSERT INTO hood(hoodName,northeastLat,northeastLong,southwestLat,southwestLong)
 -- Block
 SELECT hoodId INTO @hoodID FROM hood where hoodName = 'Jay Street';
 INSERT INTO block(hoodId,blockName,northeastLat,northeastLong,southwestLat,southwestLong) VALUES( @hoodID, 'Nyu Tandon',40.69490648767465, -73.98617712783795, 40.69374823455756, -73.98714370632177);
-INSERT INTO block(hoodId,blockName,northeastLat,northeastLong,southwestLat,southwestLong) VALUES( @hoodID,  'Hoyt Street', 40.69080656298476, -73.98431031036364,40.690250237930535, -73.98857064151775);
+INSERT INTO block(hoodId,blockName,northeastLat,northeastLong,southwestLat,southwestLong) VALUES( @hoodID,  'Hoyt Street', 40.6935642782016, -73.98607618713385,40.691002729451796, -73.98726074028013);
 
 
 
