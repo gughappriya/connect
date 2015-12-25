@@ -30,9 +30,9 @@
     <div class="container">
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a id="friends">My friends</a>
+                <li><a id="friends">My Neighbors</a>
                 </li>
-                <li><a style="padding-top: 4px;padding-bottom: 4px;margin-top: 10px;" data-toggle="modal" data-placement="right" title="Add a new friend" class="btn btn-default" id="addFriend" data-target ="#modalAddFriend"><span class="glyphicon glyphicon-plus" ></span></a>
+                <li><a style="padding-top: 4px;padding-bottom: 4px;margin-top: 10px;" data-toggle="modal" data-placement="right" title="Follow a neighbor" class="btn btn-default" id="addFriend" data-target ="#modalAddFriend"><span class="glyphicon glyphicon-plus" ></span></a>
                 </li>
             </ul>
 
@@ -44,16 +44,16 @@
     <?php
     try {
         $username = $_SESSION['username'];
-        $stmt = $mysqli->prepare("CALL get_friend_list(?)");
+        $stmt = $mysqli->prepare("CALL get_neighbor_list(?)");
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        $stmt->bind_result($friend);
+        $stmt->bind_result($neighbor);
 
         while ($stmt->fetch()) {
             ?>
             <a class = "list-group-item" >
                 <h4 class = "list-group-item-heading" > </h4>
-                <p class = "list-group-item-text" ><?php echo $friend; ?> </p><br>
+                <p class = "list-group-item-text" ><?php echo $neighbor; ?> </p><br>
             </a><?php
         }
         $stmt->close();
@@ -84,29 +84,29 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form class="form-horizontal" action = "home.php?page=friendList" method="POST" role="form">
+                <form class="form-horizontal" action = "home.php?page=neighborList" method="POST" role="form">
 
                     <div class="form-group">
                         <div class="col-md-9">
                             <?php
                             try {
-                                $stmt = $mysqli->prepare("CALL get_friend_search(?)");
+                                $stmt = $mysqli->prepare("CALL get_neighbor_search(?)");
                                 $stmt->bind_param('s', $username);
                                 $stmt->execute();
-                                $stmt->bind_result($newfriend);
+                                $stmt->bind_result($newneighbor);
                                 while ($stmt->fetch()) {
                                     ?>
                                     <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
-                                        <p class = "list-group-item-text" ><?php echo $newfriend; ?> </p><br>
-                                        <button type = "submit" name = "addfriend" class = "btn btn-sm btn-primary" id = "addfriend" value='<?php $newfriend ?>'> Add</button>
+                                        <p class = "list-group-item-text" ><?php echo $newneighbor; ?> </p><br>
+                                        <button type = "submit" name = "addfriend" class = "btn btn-sm btn-primary" id = "addfriend" value='<?php $newneighbor ?>'> Follow</button>
                                     </a><?php
                                 }
                                 $stmt->close();
                                  if (isset($_POST["addfriend"])) {
                                     //$_SESSION["pendingUser"] = $uname;
-                                    if ($requeststmt = $mysqli->prepare("CALL send_friend_request(?,?)")) {
-                                        $requeststmt->bind_param("ss", $username, $newfriend);
+                                    if ($requeststmt = $mysqli->prepare("CALL follow_neighbor(?,?)")) {
+                                        $requeststmt->bind_param("ss", $username, $newneighbor);
                                         if ($requeststmt->execute()) {
                                             mysqli_stmt_fetch($requeststmt);
                                         } else {

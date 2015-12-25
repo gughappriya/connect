@@ -294,7 +294,7 @@
                                     <a href="home.php?page=blockRequests">Block requests</a>
                                 </li>
                                 <li>
-                                    <a href="../friends.html">Friend requests</a>
+                                    <a href="home.php?page=friendRequests">Friend requests</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -306,7 +306,7 @@
                                     <a href="home.php?page=friendList">Friends</a>
                                 </li>
                                 <li>
-                                    <a href="../friends.html">Neighbors</a>
+                                    <a href="home.php?page=neighborList">Neighbors</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

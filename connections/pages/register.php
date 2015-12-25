@@ -54,7 +54,7 @@ if ($_SESSION['username'] != '') {
             function initMap() {
                 var mapFeed = new google.maps.Map(document.getElementById('mapFeed'), {
                     center: {lat: -34.397, lng: 150.644},
-                    zoom: 13
+                    zoom: 17
                 });
                 var infoWindowFeed = new google.maps.InfoWindow({map: mapFeed});
 
@@ -66,7 +66,8 @@ if ($_SESSION['username'] != '') {
                         };
 
                         infoWindowFeed.setPosition(pos);
-                        infoWindowFeed.setContent('You are here: '+ pos.lat+','+ pos.lng);
+                        //infoWindowFeed.setContent('You are here: ' + pos.lat + ',' + pos.lng);
+                        infoWindowFeed.setContent('You are here!');
                         updateMarkerPosition(pos, 'input[name=feedLocation]');
                         mapFeed.setCenter(pos);
                     }, function () {
@@ -140,12 +141,12 @@ if ($_SESSION['username'] != '') {
             }
         </script>
         <style>
- #photoDiv div {
-  display: inline;
+            #photoDiv div {
+                display: inline;
 
-  width: 30%;
-}
-</style>
+                width: 30%;
+            }
+        </style>
     </head>
     <body>
 
@@ -192,36 +193,30 @@ if ($_SESSION['username'] != '') {
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="pic">Profile Picture</label>
-                                        
-                                        <div  class="col-md-9" id="photoDiv" >
-							<div class="col-md-9" align="left">
-                                                            <input type="file" class="filestyle" data-input="false" name="fileImage" id="image_upload" required="">
-<!-- 								<input name="userfile" type="file" id="userfile"> " -->
-							</div>
-							</div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <textarea name="address" class="form-control" id="addr" required></textarea>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="about">Tell us something about yourself</label>
-                                        <textarea class="form-control" name="profiledesc" id="about"></textarea>
-                                    </div>
-<!--                                    <div class="col-md-9">-->
                                         <div class="form-group">
-                                               <label for="about">Your location</label>
-                                                <input type='hidden' class="form-control" name="feedLocation"
-                                                       placeholder="Enter location">
-<!--                                            </div>-->
+                                            <label for="pic">Profile Picture</label>
+                                            <input type="file" class="form-control" data-input="false" name="fileImage" required id="image_upload">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <textarea name="address" class="form-control" id="addr" required></textarea>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="about">Tell us something about yourself</label>
+                                            <textarea class="form-control" name="profiledesc" id="about"></textarea>
+                                        </div>
+                                        <!--                                    <div class="col-md-9">-->
+                                        <div class="form-group">
+                                            <label for="about">Choose your location</label>
+                                            <input class="form-control" data-input="false" name="feedLocation"
+                                                   placeholder="Enter location" required>
+                                            <!--                                            </div>-->
                                         </div>
                                         <div class="maps" id="mapFeed"></div>
-<!--                                    </div>-->
-                                    <input type="submit" value="Register" class="btn btn-primary pull-right" />
+                                        <!--                                    </div>-->
+                                        <input type="submit" value="Register" class="btn btn-primary pull-right" />
                                     </div>
                                 </form>
 
