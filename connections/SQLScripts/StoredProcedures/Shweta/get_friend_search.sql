@@ -1,4 +1,5 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_friend_search`(IN `userName` VARCHAR(25))
+DELIMITER $$
+CREATE PROCEDURE `get_friend_search`(IN `userName` VARCHAR(25))
 BEGIN
 SELECT u.userName FROM user u
 WHERE  u.userName != userName AND

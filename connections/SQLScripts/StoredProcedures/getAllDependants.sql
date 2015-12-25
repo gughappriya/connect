@@ -32,12 +32,12 @@ BEGIN
 			Connections.block
 			WHERE hoodId =(SELECT hoodId FROM blockrequests natural join Connections.block
 			WHERE userName = user_Name)
-			AND currentStatus ='APPROVED' UNION SELECT user_Name;
+			AND currentStatus ='Approved' UNION SELECT user_Name;
 		WHEN 'block' THEN
 			INSERT INTO dependants SELECT userName FROM blockrequests
 			WHERE blockId =(SELECT blockId FROM blockrequests WHERE userName =
 			user_Name)
-			AND currentStatus ='APPROVED' UNION SELECT user_Name;
+			AND currentStatus ='Approved' UNION SELECT user_Name;
 		WHEN 'user' THEN
 			INSERT INTO dependants SELECT recipientName as user_Name UNION SELECT user_Name;
 		ELSE

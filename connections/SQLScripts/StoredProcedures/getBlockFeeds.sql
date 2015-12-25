@@ -8,7 +8,7 @@ BEGIN
 	LastLoginTimeOfCurrentUser
 	FROM message m
 	inner join blockrequests br ON br.userName = m.messageAuthor AND br.blockid = (SELECT blockId
-	from blockrequests WHERE userName =user_name) AND br.currentStatus='APPROVED'
+	from blockrequests WHERE userName =user_name) AND br.currentStatus='Approved'
 	inner JOIN messagerecipient mr ON mr.messageId = m.messageId AND mr.recepientUserName =	user_name
 	LEFT join reply r on m.messageId = r.messageId
 	AND TIMESTAMPDIFF(SECOND, m.creationDate, @lastLoginTime) <=0

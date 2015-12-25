@@ -1,4 +1,5 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `blockrequest_approval`(IN `approverName` VARCHAR(25), IN `toApproveName` VARCHAR(25))
+DELIMITER $$
+CREATE PROCEDURE blockrequest_approval(IN approverName VARCHAR(25), IN toApproveName VARCHAR(25))
 BEGIN
   SELECT `blockid` INTO @block_id 
   FROM blockrequests 
