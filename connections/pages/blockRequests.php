@@ -8,7 +8,9 @@
         }
     </style>
 </head>
+
 <?php include("include.php"); ?>
+              
 <form action = "home.php?page=blockRequests" method="POST">
     <!-- /.row -->
     <div class = "row">
@@ -45,16 +47,18 @@
                                 <?php
                                 /* fetch associative array */
                                 while ($select_stmt->fetch()) {
-                                    ?> <a class = "list-group-item" >
+                                    ?> <div class = "row">
+                                        
+                                        <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
-                                       <?php echo "<img src=../images/user_images/" . $uname . ".jpg id='circle'  height='30' width='30'>" ?>
                                         <p class = "list-group-item-text" ><?php echo $uname; ?> </p><br>
+                                        <div> <?php echo "<img src=../images/user_images/" . $uname . ".jpg id='circle' height='30' width='30'>" ?> <br>  </div> <br><br>                  
                                         <button type = "submit" name = "blockAccept" class = "btn btn-sm btn-primary" id = "blockAccept" value='<?php $uname ?>'> Accept</button>
-                                    </a><?php
+                                        </a></div><?php
                     }
                     $select_stmt->close();
-                    if (isset($_POST["blockAccept"])) {
-                        $_SESSION["pendingUser"] = $uname;
+                       if (isset($_POST["blockAccept"])) {
+                        //$_SESSION["pendingUser"] = $uname;
                         if ($stmt = $mysqli->prepare("CALL blockrequest_approval(?,?)")) {
                             $stmt->bind_param("ss", $username, $uname);
                             if ($stmt->execute()) {
@@ -65,7 +69,6 @@
                         } else {
                             echo $mysqli->error();
                         }
-                        // header("refresh: 1; home.php?page=blockRequests");
                     }
                 }
             }

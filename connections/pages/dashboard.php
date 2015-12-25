@@ -5,8 +5,8 @@
         #circle
         {
             border-radius:50% 50% 50% 50%;  
-            width:80px;
-            height:80px;
+            width:100px;
+            height:100px;
         }
     </style>
 </head>
@@ -24,9 +24,9 @@ while ($stmt->fetch()) {
     $numrows = $numrows + 1;
 }
 if ($count == 1) {
-   ?><h4> Welcome to Connections, <?php echo $_SESSION['username']; ?>! </h4>
-       <br>
-       <h5> Your block request is still pending! </h5>      <?php
+    ?><h4> Welcome to Connections, <?php echo $_SESSION['username']; ?>! </h4>
+    <br>
+    <h5> Your block request is still pending! </h5>      <?php
 } else {
     ?>
 
@@ -61,8 +61,7 @@ if ($count == 1) {
 
                                 <div class = "col-lg-3 col-md-6">
                                     <div >
-                                        <?php 
-                                        echo "<img src=../images/user_images/" . $username . ".jpg id='circle'  height='30' width='30'>" ?>
+                                        <?php echo "<img src=../images/user_images/" . $username . ".jpg id='circle'  height='40' width='40'>" ?></div>
                                     </div>
                                     <!--                        <div class = "panel panel-primary">
                                                                   <div class = "panel-heading">
@@ -160,9 +159,9 @@ if ($count == 1) {
                         }
                         $stmt->close();
                         ?> 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-   <?php } ?>
+    <?php } ?>
 

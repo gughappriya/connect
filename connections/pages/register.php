@@ -3,9 +3,7 @@
 if (session_id() == '') {
     session_start();
 }
-if ($_SESSION['username'] != '') {
-    header("refresh: home.php");
-}
+
 ?>
 <html lang="en">
     <head>
