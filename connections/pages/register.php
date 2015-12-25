@@ -42,7 +42,7 @@ if ($_SESSION['username'] != '') {
         <style type="text/css">
             .maps {
                 height: 200px;
-                width: 350px;
+                width: 400px;
                 margin:1%;
                 background-color: #CCC;
             }
@@ -54,7 +54,7 @@ if ($_SESSION['username'] != '') {
             function initMap() {
                 var mapFeed = new google.maps.Map(document.getElementById('mapFeed'), {
                     center: {lat: -34.397, lng: 150.644},
-                    zoom: 10
+                    zoom: 13
                 });
                 var infoWindowFeed = new google.maps.InfoWindow({map: mapFeed});
 
