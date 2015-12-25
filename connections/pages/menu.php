@@ -1,4 +1,41 @@
-  <!-- Navigation -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="dist/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="External/jquery-1.11.3.min.js"></script>
+    <script src="External/jquery-1.11.3.js"></script>
+    <!--script src="External/bootstrap-table.min.js"></script-->
+		<script src="External/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="External/bootstrap-table.css">
+    <link rel="stylesheet" href="External/bootstrap-table.min.css">
+
+  <script src="External/bootstrap.min.js"></script>
+  <script src="External/bootstrap.js"></script>
+  <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="External/bootstrap-table.js"></script>
+    <script src="External/ga.js"></script>
+</head> <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -256,9 +293,24 @@
                                 <li>
                                     <a href="home.php?page=blockRequests">Block requests</a>
                                 </li>
+                                <li>
+                                    <a href="../friends.html">Friend requests</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>                       
+                        </li>      
+                             <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Contacts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="home.php?page=friendList">Friends</a>
+                                </li>
+                                <li>
+                                    <a href="../friends.html">Neighbors</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>  
                         <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>
