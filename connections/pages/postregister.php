@@ -40,7 +40,7 @@ $longitude = $myArray[1];
 //$notificationtype = cleanText($_POST['notificationType']);
 //$notificationvalue = cleanText($_POST['notificationvalue']);
 //set the upload path for the image file
-$target_path = $_SERVER['DOCUMENT_ROOT'] . "Connect/connections/images/user_images/" . basename($_POST["username"]) . ".jpg";
+$target_path = $_SERVER['DOCUMENT_ROOT'] . "../images/user_images/" . basename($_POST["username"]) . ".jpg";
 //echo $target_path;
 //Check for duplicate login ID
 if ($username != '') {

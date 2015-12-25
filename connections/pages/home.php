@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?php include_once('include.php')?>;
-<?php $page = isset($_GET['page']) ? $_GET['page'] : 'home'; ?>
+    <?php include ("include.php") ?>;
+    <?php $page = isset($_GET['page']) ? $_GET['page'] : 'home'; ?>
     <head>
 
         <meta charset="utf-8">
@@ -46,9 +46,9 @@
             <?php include_once('menu.php') ?>
 
             <div id="page-wrapper">
-            <div class="row">
+                <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><?=$page?></h1>
+                        <h1 class="page-header"><?= $page ?></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -56,44 +56,44 @@
                     <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> <?=$page?>
+                                <i class="fa fa-bar-chart-o fa-fw"></i> <?= $page ?>
                                 <div class="pull-right">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                             Actions
                                             <span class="caret"></span>
                                         </button>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">                                  
                                 <div>
-                                <?php
-                                if (!empty($page)) {
-                                    $page .= '.php';
-                                    include_once($page);
-                                } /* if $page has a value, include it */ else {
-                                    echo 'Page not found. Return to
+                                    <?php
+                                    if (!empty($page)) {
+                                        $page .= '.php';
+                                        include_once($page);
+                                    } /* if $page has a value, include it */ else {
+                                        echo 'Page not found. Return to
 		<a href="home.php">index</a>';
-                                } /* otherwise, include the default page */
-                                ?>
+                                    } /* otherwise, include the default page */
+                                    ?>
+                                </div>
+                                <!-- /.panel-body -->
                             </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
+                            <!-- /.panel -->
 
-                        <!-- /.panel-body -->
-                       
+                            <!-- /.panel-body -->
+
+                        </div>
+                        <!-- /.panel .chat-panel -->
                     </div>
-                    <!-- /.panel .chat-panel -->
+                    <!-- /.col-lg-4 -->
                 </div>
-                <!-- /.col-lg-4 -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
+            <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
 

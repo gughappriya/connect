@@ -6,7 +6,6 @@
             <?php
             try {
                 $username = $_SESSION['username'];
-
                 $block_query = "select b.blockId, b.hoodId from block b where b.blockId in (select blockId from blockrequests where userName= ?)";
                 $stmt = $mysqli->prepare($block_query);
                 $stmt->bind_param('s', $username);
@@ -20,7 +19,6 @@
                 $get_user_query = "select userName from blockRequests br where br.blockId=? and currentStatus='Pending' 
                         and ((approver1 is null or approver1 != ?)
                         or ((approver2 is null or approver2 != ?) and approver1 != ?))and br.userName != ?";
-
                 $select_stmt = $mysqli->prepare($get_user_query);
                 $select_stmt->bind_param('dssss', $blockId, $username, $username,$username, $username);
                 if ($select_stmt->execute()) {
@@ -28,11 +26,11 @@
                     $numrows = $select_stmt->num_rows;
                     $select_stmt->bind_result($uname);
                     if ($numrows == 0) {
-                        ?> <h3> You have no pending requests </h3>
+                        ?> <h5> You have no pending requests </h5>
                         <div class = "list-group" id = "display" >
                             <?php
                         } else {
-                            ?> <h3> You have following pending requests </h3>
+                            ?> <h5> You have following pending requests </h5>
                             <div class = "list-group" id = "display" >
                                 <?php
                                 /* fetch associative array */
@@ -44,7 +42,6 @@
                                     </a><?php
                                 }
                                 $select_stmt->close();
-
                                 if (isset($_POST["blockAccept"])) {
                                     $_SESSION["pendingUser"] = $uname;
                                     if ($stmt = $mysqli->prepare("CALL blockrequest_approval(?,?)")) {
@@ -71,4 +68,3 @@
         </div>
     </div>
 </form>
-
