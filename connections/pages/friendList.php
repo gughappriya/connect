@@ -99,7 +99,7 @@
                                     <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
                                         <p class = "list-group-item-text" ><?php echo $newfriend; ?> </p><br>
-                                        <button type = "submit" name = "addfriend" class = "btn btn-sm btn-primary" id = "addfriend" value='<?php $newfriend ?>'> Add</button>
+                                        <button type = "submit" name = "addfriend" class = "btn btn-sm btn-primary" id = 'addfriend_<?php echo $newfriend ?>' value='<?php echo $newfriend ?>'> Add</button>
                                     </a><?php
                                 }
                                 $stmt->close();

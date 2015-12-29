@@ -9,7 +9,7 @@
             <table class="table table-striped table-bordered table-hover" id="threadsTable">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        
                         <th>Topic</th>
                         <th>Created Date</th>
                         <th>Author Name</th>
@@ -63,7 +63,7 @@
                             $select_stmt->bind_result($mId, $topic, $author, $threadCreatedDate);
                             while ($select_stmt->fetch()) {
                                 echo "<tr class=\"odd gradeX\">
-                                           <td>$mId<td><a href=\"home.php?page=replies&mId=$mId\" >$topic</a></td>
+                                           <td><a href=\"home.php?page=replies&mId=$mId\" >$topic</a></td>
                                             <td>$threadCreatedDate</td><td>$author</td><td></td></tr>";
                             }
                         }

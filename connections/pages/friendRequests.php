@@ -27,7 +27,7 @@
                                     ?> <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
                                         <p class = "list-group-item-text" ><?php echo $friendname; ?> </p><br>
-                                        <button type = "submit" name = "blockAccept" class = "btn btn-sm btn-primary" id = "blockAccept" value='<?php $friendname ?>'> Accept</button>
+                                        <button type = "submit" name = "blockAccept" class = "btn btn-sm btn-primary" id = 'blockAccept_<?php $friendname ?>' value='<?php $friendname ?>'> Accept</button>
                                     </a><?php
                                 }
                                 $select_stmt->close();

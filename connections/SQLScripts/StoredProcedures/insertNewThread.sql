@@ -14,4 +14,5 @@ BEGIN
 	recipientUserName,now() as lastSeen FROM dependants) ;
     
 	DROP TEMPORARY TABLE IF EXISTS dependants;
+END
 END $$

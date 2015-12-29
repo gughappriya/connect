@@ -13,4 +13,4 @@ BEGIN
 	LEFT join reply r on m.messageId = r.messageId
 	AND TIMESTAMPDIFF(SECOND, m.creationDate, @lastLoginTime) <=0
 	OR TIMESTAMPDIFF(SECOND, r.creationDate, @lastLoginTime) <=0 ;
-END $$
+END

@@ -44,4 +44,4 @@ BEGIN
 		BEGIN
 		END;
 	END CASE;
-END $$
+END

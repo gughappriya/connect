@@ -40,7 +40,7 @@ $longitude = $myArray[1];
 //$notificationtype = cleanText($_POST['notificationType']);
 //$notificationvalue = cleanText($_POST['notificationvalue']);
 //set the upload path for the image file
-$target_path = $_SERVER['DOCUMENT_ROOT'] . "../images/user_images/" . basename($_POST["username"]) . ".jpg";
+$target_path = $_SERVER['DOCUMENT_ROOT'] . "connections/images/user_images/" . basename($_POST["username"]) . ".jpg";
 //echo $target_path;
 //Check for duplicate login ID
 if ($username != '') {
@@ -75,13 +75,15 @@ $insert_query = "INSERT INTO " .
         "address," .
         "profilePic," .
         "profileDescription," .
+        "latitude," .
+        "longitude," .
         "recentvisitedTime) " .
         "VALUES" .
-        "(?,?,?,?,?,?,?,?,now())";
+        "(?,?,?,?,?,?,?,?,?,?,now())";
 
 move_uploaded_file($_FILES['fileImage']['tmp_name'], $target_path);
 if ($insert_stmt = $mysqli->prepare($insert_query)) {
-    $insert_stmt->bind_param('ssssssss', $username, $password, $fname, $lname, $gender, $address, $profilepic, $profiledesc);
+    $insert_stmt->bind_param('ssssssssdd', $username, $password, $fname, $lname, $gender, $address, $profilepic, $profiledesc,$latitude,$longitude);
     if ($insert_stmt->execute()) {
         echo "<div class='isa_info'>Successfully registered! </div>";
         $_SESSION['username'] = $username;

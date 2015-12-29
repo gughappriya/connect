@@ -274,7 +274,10 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="home.php?page=dashboard"><i class="fa fa-dashboard fa-fw"></i> dashboard</a>
+                            <a href="home.php?page=dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="home.php?page=mapview"><i class="fa fa-dashboard fa-fw"></i> Map View</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Messages<span class="fa arrow"></span></a>

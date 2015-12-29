@@ -15,8 +15,8 @@ DECLARE block_id INT;
 	FROM `Connections`.`blockrequests` br
 	WHERE br.userName = V_USERNAME AND br.blockid = block_id;
     SELECT found;
-	IF found = 1 THEN
-			UPDATE blockrequests SET blockid=block_id , currentStatus='Pending' WHERE userName = V_USERNAME ;
+	IF found = 0 THEN
+			UPDATE `Connections`.`blockrequests` SET `blockid`=block_id , `currentStatus`='Pending', approver1=NULL,approver2=NULL,approver3=NULL WHERE `userName` = V_USERNAME ;
 				
 			SELECT 'true';
 	END IF;

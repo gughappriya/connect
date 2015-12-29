@@ -7,9 +7,35 @@
             height:80px;
         }
     </style>
+    <?php
+    include ("include.php");
+    ?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Connections</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
+
 <?php include("include.php"); ?>
-<form action = "home.php?page=blockRequests" method="POST">
+              
+<form  method="POST">
     <!-- /.row -->
     <div class = "row">
         <div class = "col-lg-10">
@@ -45,16 +71,18 @@
                                 <?php
                                 /* fetch associative array */
                                 while ($select_stmt->fetch()) {
-                                    ?> <a class = "list-group-item" >
+                                    ?> <div class = "row">
+                                        <?php $current = $uname; ?>
+                                        <a class = "list-group-item" >
                                         <h4 class = "list-group-item-heading" > </h4>
-                                       <?php echo "<img src=../images/user_images/" . $uname . ".jpg id='circle'  height='30' width='30'>" ?>
-                                        <p class = "list-group-item-text" ><?php echo $uname; ?> </p><br>
+                                        <p class = "list-group-item-text" ><?php echo $current; ?> </p><br>
+                                         <div> <?php echo "<img src=../images/user_images/" . $current . ".jpg id='circle' height='30' width='30'>" ?> <br>  </div> <br><br>                  
                                         <button type = "submit" name = "blockAccept" class = "btn btn-sm btn-primary" id = "blockAccept" value='<?php $uname ?>'> Accept</button>
-                                    </a><?php
+                                        </a></div><?php
                     }
                     $select_stmt->close();
-                    if (isset($_POST["blockAccept"])) {
-                        $_SESSION["pendingUser"] = $uname;
+                       if (isset($_POST["blockAccept"])) {
+                        //$_SESSION["pendingUser"] = $uname;
                         if ($stmt = $mysqli->prepare("CALL blockrequest_approval(?,?)")) {
                             $stmt->bind_param("ss", $username, $uname);
                             if ($stmt->execute()) {
@@ -65,7 +93,6 @@
                         } else {
                             echo $mysqli->error();
                         }
-                        // header("refresh: 1; home.php?page=blockRequests");
                     }
                 }
             }

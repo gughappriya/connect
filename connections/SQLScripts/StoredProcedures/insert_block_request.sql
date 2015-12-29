@@ -2,7 +2,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_block_request`(IN USERNAME V
 BEGIN
 DECLARE found INT;
 DECLARE block_id INT;
-DECLARE userno INT;
 	SELECT blockId INTO block_id
     FROM block WHERE
 		  LATITUDE >= southwestLat &&
@@ -16,17 +15,8 @@ DECLARE userno INT;
 	WHERE br.userName = USERNAME AND br.blockid = block_id;
     SELECT found;
 	IF found = 0 THEN
-			SELECT COALESCE(COUNT(*),0) INTO userno
-            FROM blockrequests br WHERE br.blockId = block_id;
-            
-            IF(userno = 0) THEN
-			INSERT INTO `Connections`.`blockrequests` (`userName`, `blockid`, `currentStatus`)
-				VALUES (USERNAME, block_id, 'Approved');
-                
-			ELSE
 			INSERT INTO `Connections`.`blockrequests` (`userName`, `blockid`, `currentStatus`)
 				VALUES (USERNAME, block_id, 'Pending');
-            END IF;
-			
+			SELECT 'true';
 	END IF;
 END
